@@ -54,12 +54,12 @@ df = df[['Last', 'Volume']]
 # df = df[['Adj. Close', 'HL_PCT', 'PCT_change', 'Adj. Volume']]
 #forecast_col = 'Adj. Close'
 
-df = df.tail(n=300)
+df = df.tail(n=60)
 #print(df.tail(n=20))
 
 df.fillna(-99999, inplace=True)
 
-forecast_out = int(math.ceil(0.1*len(df)))
+forecast_out = int(math.ceil(0.003*len(df)))
 #print(forecast_out)
 df['label'] = df[forecast_col].shift(-forecast_out)
 
@@ -74,14 +74,14 @@ df.dropna(inplace=True)
 y = np.array(df['label'])
 
 
-x_train, x_test, y_train, y_test = model_selection.train_test_split(x, y, test_size=0.50)
+x_train, x_test, y_train, y_test = model_selection.train_test_split(x, y, test_size=0.30)
 
-# clf = LinearRegression(n_jobs=-1)
-# clf.fit(x_train, y_train)
-#
-#
-# with open('linearregression.pickle', 'wb') as f:
-#     pickle.dump(clf, f)
+clf = LinearRegression(n_jobs=-1)
+clf.fit(x_train, y_train)
+
+
+with open('linearregression.pickle', 'wb') as f:
+    pickle.dump(clf, f)
 
 pickle_in = open('linearregression.pickle', 'rb')
 clf = pickle.load(pickle_in)
