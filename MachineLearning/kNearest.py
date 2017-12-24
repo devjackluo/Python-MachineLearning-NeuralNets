@@ -1,6 +1,7 @@
 import numpy as np
 from sklearn import preprocessing, model_selection, neighbors
 import pandas as pd
+from sklearn.cluster import KMeans
 
 
 accuracies = []
