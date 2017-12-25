@@ -44,6 +44,10 @@ print(sys.maxsize)
 # print(100**100000)
 
 
-for i in range(100):
-    print(random.randint(0, 2))
+# for i in range(100):
+#     print(random.randint(0, 2))
+
+
+somelsit = [4,2,3,1,5,6]
+print(somelsit.index(min(somelsit)))
 

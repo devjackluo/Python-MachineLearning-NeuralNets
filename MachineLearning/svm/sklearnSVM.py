@@ -39,6 +39,8 @@ clf.fit(X, y)
 def checkClass(x):
     print('class:', x, 'is', clf.score([[-2, 4]], [x]))
 
+plt.scatter(-2, 4, color='k', s=100)
+
 for i in data_dict:
     checkClass(i)
 

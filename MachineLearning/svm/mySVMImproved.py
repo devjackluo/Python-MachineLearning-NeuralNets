@@ -11,8 +11,8 @@ class Support_Vector_Machine:
 
         self.currentChoice = 0
         self.currentIsOne = True
-        self.stepIntervalRotation = 30
-        self.constantSteps = 30
+        self.stepIntervalRotation = 30.0
+        self.constantSteps = 30.0
 
         self.visualization = visualization
         self.colors = {1:'r', -1:'b', 2:'r', -2:'b', 666:'r', -666:'b'}
@@ -71,7 +71,7 @@ class Support_Vector_Machine:
         # we dont need to take as small steps with b as we do with w
         b_multiple = 5
 
-        lastest_optimum = self.max_feature_value*10
+        lastest_optimum = self.max_feature_value*10.0
 
         firstStep = True
 
@@ -89,16 +89,16 @@ class Support_Vector_Machine:
 
             if firstStep:
                 firstStep = False
-                checking_list = np.arange(-1 * (lastest_optimum/4 * b_range_multiple),
-                                          lastest_optimum/4 * b_range_multiple,
+                checking_list = np.arange(-1 * (lastest_optimum/4.0 * b_range_multiple),
+                                          lastest_optimum/4.0 * b_range_multiple,
                                           step * b_multiple)
             else:
-                checking_list = np.arange(-1 * (lastest_optimum * 2),
-                                          lastest_optimum * 2,
+                checking_list = np.arange(-1 * (lastest_optimum * 2.0),
+                                          lastest_optimum * 2.0,
                                           step * b_multiple)
 
             # this is where I set the stepping intervals (how vector rotates)
-            self.stepIntervalRotation = int(len(checking_list)/4)
+            self.stepIntervalRotation = int(len(checking_list)/4.0)
             self.constantSteps = self.stepIntervalRotation
 
             # print('checking list', checking_list)
@@ -160,7 +160,7 @@ class Support_Vector_Machine:
                     self.stepIntervalRotation = self.stepIntervalRotation - 1
                     if self.stepIntervalRotation == 0:
                         self.stepIntervalRotation = self.constantSteps
-                        wChoice[self.currentChoice] = round(wChoice[self.currentChoice-1] - step * int(self.constantSteps / 4), 3)
+                        wChoice[self.currentChoice] = round(wChoice[self.currentChoice-1] - step * int(self.constantSteps / 4.0), 3)
                         lastOne = self.currentChoice
                         while self.currentChoice == lastOne:
                             self.currentChoice = random.randint(0, len(w)-1)
@@ -179,7 +179,7 @@ class Support_Vector_Machine:
             self.b = opt_choice[1]
 
             # this sets the lastest optimized range value to new optimized value plus a couple steps for safety measures
-            lastest_optimum = abs(max(opt_choice[0], key=abs)) + step*2
+            lastest_optimum = abs(max(opt_choice[0], key=abs)) + step*2.0
 
         for i in self.data:
             for xi in self.data[i]:
