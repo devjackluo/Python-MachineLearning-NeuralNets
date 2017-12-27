@@ -29,7 +29,7 @@ class K_Means:
 
         # create unique random K range numbers for initial centroid selection
         initCentroidSpots = random.sample(range(0,len(data)), self.k)
-        #print(initCentroidSpots)
+        # print(initCentroidSpots)
 
         for i in range(self.k):
             # create k number of initial centroids
@@ -52,7 +52,7 @@ class K_Means:
                 # see which centroid it was closes to by taking the index of the distance (because centroids in order)
                 classification = distances.index(min(distances))
                 # then append the classification (0-k) with the feature set
-                #print(self.classifications)
+                # print(self.classifications)
                 self.classifications[classification].append(featureset)
 
             # creates a copy instead of linked
@@ -61,7 +61,6 @@ class K_Means:
             for classification in self.classifications:
                 # np.average calculates the average centroid of all feature sets?
                 self.centroids[classification] = np.average(self.classifications[classification], axis=0)
-
 
             # guilty until proven innocent
             optimized = True
