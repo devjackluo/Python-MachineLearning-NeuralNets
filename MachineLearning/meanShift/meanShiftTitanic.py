@@ -8,6 +8,7 @@ import pandas as pd
 from sklearn.utils import shuffle
 
 
+
 df = pd.read_excel('titanic.xls')
 original_df = pd.DataFrame.copy(df)
 df.drop(['body', 'name', 'boat'], 1, inplace=True)

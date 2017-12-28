@@ -1,6 +1,5 @@
 import matplotlib.pyplot as plt
 from matplotlib import style
-
 style.use('ggplot')
 import numpy as np
 from sklearn.datasets.samples_generator import make_blobs
@@ -12,7 +11,7 @@ import random
 
 centers = random.randrange(2,8)
 print(centers)
-x, y = make_blobs(n_samples=30, centers=centers, n_features=2)
+x, y = make_blobs(n_samples=30, centers=3, n_features=2)
 
 # plt.scatter(x[:,0], x[:,1], s=150)
 # plt.show()
@@ -51,7 +50,7 @@ class Mean_Shift:
                 in_bandwidth = []
                 centroid = centroids[i]
 
-                # get all featuresets in the current centriod's radius
+                # get all featureset's dynamic value towards the centroid
                 for featureset in data:
 
                     # feature set distance to centroid
@@ -63,12 +62,10 @@ class Mean_Shift:
                     weight_index = int(distance / self.radius)
                     if weight_index > self.radius_norm_step - 1:
                         weight_index = self.radius_norm_step - 1
-
+                    # add to in band (which is everythhing in dynamic)
                     to_add = (weights[weight_index] ** 2) * [featureset]
                     in_bandwidth += to_add
 
-                    # if np.linalg.norm(featureset-centroid) < self.radius:
-                    #     in_bandwidth.append(featureset)
 
                 # calculate the center of all the contained featuresets to get new centroid
                 new_centroid = np.average(in_bandwidth, axis=0)
@@ -78,13 +75,13 @@ class Mean_Shift:
             uniques = sorted(list(set(new_centroids)))
 
 
-
+            # remove centroids that are pretty close to each other
             to_pop = []
             for i in uniques:
                 for ii in uniques:
                     if i == ii:
                         pass
-                    elif np.linalg.norm(np.array(i) - np.array(ii)) <= self.radius:
+                    elif np.linalg.norm(np.array(i) - np.array(ii)) <= self.radius/2:
                         to_pop.append(ii)
                         break
 

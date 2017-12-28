@@ -2,6 +2,15 @@ import numpy as np
 import sys
 import random
 
+#from create_sentiment_featuresets import create_feature_sets_and_labels
+# import pickle
+# pickle_in = open('sentiment_set.pickle', 'rb')
+# train_x, train_y, test_x, test_y = pickle.load(pickle_in)
+# #train_x, train_y, test_x, test_y = create_feature_sets_and_labels('pos.txt', 'neg.txt')
+
+
+
+
 a = [[1, -50], [0, 1]]
 b = [[4, 1], [2, 2]]
 print(np.dot(a, b))
