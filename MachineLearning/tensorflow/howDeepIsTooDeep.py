@@ -1,7 +1,8 @@
 import tensorflow as tf
 from tensorflow.examples.tutorials.mnist import input_data
-# import os
-# os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
+import os
+import pickle
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 '''
 input  --weight> hidden layer 1 (activation function) --weight> hidden layer 2 (act func) --weight> output layer
@@ -15,7 +16,13 @@ feed forward + backprop = epoch
 
 '''
 
-mnist = input_data.read_data_sets('/tmp/data/', one_hot=True)
+# mnist = input_data.read_data_sets('/tmp/data/', one_hot=True)
+# with open('/tmp/mnist.pickle', 'wb') as f:
+#     pickle.dump(mnist, f)
+
+pickle_in = open('/tmp/mnist.pickle', 'rb')
+mnist = pickle.load(pickle_in)
+
 
 '''
 10 classes, 0-9
@@ -32,11 +39,11 @@ ONE HOT (one in on, all off)
 
 # number of nodes for hidden layers (can be different for each layer)
 n_nodes_hl1 = 500
-n_nodes_hl2 = 500
+n_nodes_hl2 = 200
 n_nodes_hl3 = 500
-n_nodes_hl4 = 500
+n_nodes_hl4 = 200
 n_nodes_hl5 = 500
-n_nodes_hl6 = 500
+n_nodes_hl6 = 200
 
 n_classes = 10
 # how much to do each time to not consume all the RAM
@@ -121,7 +128,11 @@ def train_neural_network(x_data):
         sess.run(tf.global_variables_initializer())
 
         # loads old model
-        saver.restore(sess, "/tmp/model.ckpt")
+        try:
+            saver.restore(sess, "/tmp/model.ckpt")
+            print("Model Loaded")
+        except:
+            pass
 
         # for each cycle
         for epoch in range(hm_epochs):
