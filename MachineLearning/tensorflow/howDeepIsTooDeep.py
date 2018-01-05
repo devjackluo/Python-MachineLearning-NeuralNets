@@ -47,7 +47,7 @@ n_nodes_hl6 = 200
 
 n_classes = 10
 # how much to do each time to not consume all the RAM
-batch_size = 1000
+batch_size = 100
 
 # 55000 images
 #print(int(mnist.train.num_examples))
@@ -116,7 +116,7 @@ def train_neural_network(x_data):
     # optimizer = tf.train.GradientDescentOptimizer(learning_rate=0.001).minimize(loss)
 
     # cycles of feed + backprop
-    hm_epochs = 2
+    hm_epochs = 10
 
     # create saver
     saver = tf.train.Saver()
