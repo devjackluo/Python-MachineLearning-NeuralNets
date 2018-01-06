@@ -64,12 +64,28 @@ def train_neural_network(x):
     cost = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=prediction, labels=y))
     optimizer = tf.train.AdamOptimizer().minimize(cost)
 
-    hm_epochs = 10
+    hm_epochs = 20
+
+    # create saver
+    saver = tf.train.Saver()
+
+
     with tf.Session() as sess:
         # OLD:
         # sess.run(tf.initialize_all_variables())
         # NEW:
         sess.run(tf.global_variables_initializer())
+
+
+
+        # loads old model
+        try:
+            saver.restore(sess, "./cnnmodel.ckpt")
+            print("Model Loaded")
+        except:
+            pass
+
+
 
         for epoch in range(hm_epochs):
             epoch_loss = 0
@@ -84,6 +100,13 @@ def train_neural_network(x):
 
         accuracy = tf.reduce_mean(tf.cast(correct, 'float'))
         print('Accuracy:', accuracy.eval({x: mnist.test.images, y: mnist.test.labels}))
+
+
+        userinput = input('To Save Model? (Y/N) : ').lower()
+        if userinput == 'y':
+            # saves new model
+            save_path = saver.save(sess, "./cnnmodel.ckpt")
+            print("Model saved in file: %s" % save_path)
 
 
 train_neural_network(x)

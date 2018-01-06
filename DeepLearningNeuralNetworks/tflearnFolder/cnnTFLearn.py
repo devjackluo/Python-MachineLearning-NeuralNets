@@ -27,13 +27,13 @@ convnet = regression(convnet, optimizer='adam', learning_rate=0.001, loss='categ
 model = tflearn.DNN(convnet)
 
 model.load('tflearncnn.model')
-print(model.predict([test_x[2]]))
+#print(model.predict([test_x[2]]))
 
-# model.fit({'input': X}, {'targets': Y}, n_epoch=2,
-#           validation_set=({'input': test_x}, {'targets': test_y}),
-#           show_metric=True, run_id='mnist', snapshot_step=None)
-#
-# model.save('tflearncnn.model')
+model.fit({'input': X}, {'targets': Y}, n_epoch=1,
+          validation_set=({'input': test_x}, {'targets': test_y}),
+          show_metric=True, run_id='mnist', snapshot_step=None)
+
+model.save('tflearncnn.model')
 
 
 
