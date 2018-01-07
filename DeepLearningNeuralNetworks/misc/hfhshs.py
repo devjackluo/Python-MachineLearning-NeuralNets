@@ -1,5 +1,9 @@
 
 import numpy
+import tensorflow as tf
+
+print(tf.__version__)
+
 
 x = numpy.ones((1,10,4))
 print(x)
